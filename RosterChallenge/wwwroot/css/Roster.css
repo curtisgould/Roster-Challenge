@@ -25,6 +25,10 @@
   outline: none !important;
 }
 
+.buttonText:hover{
+     cursor: pointer;
+}
+
 .buttonText{
     display: inline-block;
     position: absolute;
@@ -41,6 +45,13 @@
 
 .modal-backdrop{
     opacity: 65% !important;
+}
+
+.AddEditSaveButton{
+background-color: #6CDCFF;
+border-radius: 20%;
+  border: none;
+  outline: none !important;
 }
 
 /*.fixed-header-body{

@@ -9,7 +9,7 @@
 @section dialogs{
     <partial name="~/Views/Home/Dialogs/_AddEditArtistModal.cshtml" />
 }
-<div class="addButton">
+<div id="AddArtist" class="addButton">
     <button class="plusButton"><div class="plusIcon">+</div></button><div class="buttonText">Add Artist</div>
 </div>
 
@@ -39,3 +39,16 @@
     </tbody>
 </Table>
 
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $(".modal").hide();
+        $(".modal-backdrop").hide();
+    });
+
+    $("#AddArtist").on("click", function () {
+        $("#AddEditModal").show();
+        $("#AddEditBackdrop").show();
+    });
+</script>
+}

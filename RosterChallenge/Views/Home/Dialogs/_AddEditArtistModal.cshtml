@@ -1,5 +1,29 @@
-﻿<div class="modal-backdrop">
-    <div class="modal">
-        <div class="modal-body modal-content"> Hey ho</div>
+﻿<div id="AddEditBackdrop" class="modal-backdrop"></div>
+<div id="AddEditModal"class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Add Artist</div>
+            <div class="modal-body">
+                <div class="form-floating mt-2">
+                    <input id="artist" class="form-control" placeholder="Artist Name" />
+                    <label class="floatingInput" for="artist">Artist</label>
+                </div>
+                <div class="form-floating mt-2">
+                    <input id="rate" type="number" class="form-control" placeholder="Rate" />
+                    <label class="floatingInput" for="rate">Rate</label>
+                </div>
+                <div class="form-floating mt-2">
+                    <input id="streams" type="number" class="form-control" placeholder="Streams" />
+                    <label class="floatingInput" for="streams">Streams</label>
+                </div>
+                <div class="form-floating mt-2">
+                    <input id="artist" class="form-control" type="checkbox" />
+                    <label for="artist">Paid</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="AddEditSaveButton">Save</button>
+            </div>
+        </div>
     </div>
 </div>
