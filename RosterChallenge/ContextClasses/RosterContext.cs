@@ -9,10 +9,6 @@ namespace RosterChallenge.ContextClasses
 {
     public class RosterContext : DbContext
     {
-        public RosterContext(): base()
-        {
-
-        }
         public RosterContext(DbContextOptions<RosterContext> options) : base(options)
         { 
         

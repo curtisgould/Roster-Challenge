@@ -380,3 +380,4 @@ C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\bin\Debug\netcorea
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dialogs\_AddEditArtistModal.cshtml.g.cs

@@ -1,4 +1,41 @@
-﻿@{
+﻿@model RosterModel
+@{
     ViewData["Title"] = "Artist Roster";
 }
+
+@section styles{
+    <link href="~/css/Roster.css" rel="stylesheet" />
+}
+@section dialogs{
+    <partial name="~/Views/Home/Dialogs/_AddEditArtistModal.cshtml" />
+}
+<div class="addButton">
+    <button class="plusButton"><div class="plusIcon">+</div></button><div class="buttonText">Add Artist</div>
+</div>
+
+<Table class="fixed-header">
+    <thead>
+        <tr>
+            <td class="pr-4 font-weight-bold">Artist</td>
+            <td><div class="pr-4 font-weight-bold">Rate</div></td>
+            <td><div class="float-right pr-4 font-weight-bold">Total Steams</div></td>
+            <td><div class="float-right pr-4 font-weight-bold">Payout</div></td>
+            <td><div class="float-right pr-4 font-weight-bold">Monthly Avg.</div></td>
+            <td><div class="font-weight-bold">Paid</div></td>
+        </tr>
+    </thead>
+    <tbody class="fixed-header-body">
+        @foreach (Artist a in Model.Roster)
+        {
+            <tr>
+                <td class="pr-4">@a.artist</td>
+                <td><div class="pr-4">$@a.rate</div></td>
+                <td><div class="float-right pr-4">@a.streams.ToString("N").Replace(".00", "")</div></td>
+                <td><div class="float-right pr-4">@a.getTotalPayout().ToString("C")</div></td>
+                <td><div class="float-right pr-4">@a.getAverageMonthlyPayout().ToString("C")</div></td>
+                <td><div><input class="ml-2" type="checkbox" /></div></td>
+            </tr>
+        }
+    </tbody>
+</Table>
 

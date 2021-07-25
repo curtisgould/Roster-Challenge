@@ -1,0 +1,53 @@
+﻿table {
+    margin: 0 auto;
+}
+
+.addButton{
+    &:hover{
+        cursor: pointer;
+    }
+    display: inline-block;
+    font-weight: bold;    
+    font-size: 22px;
+    width: 170px;
+    display: inline-block;
+}
+
+.plusButton {
+  height: 40px;
+  width: 40px;
+  background-color: #4cba02;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  border: none;
+  outline: none !important;
+}
+
+.buttonText{
+    display: inline-block;
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 9px;
+}
+
+.plusIcon{
+    position: absolute;
+    display: inline;
+    margin-top: -25px;
+    margin-left: -11px;
+}
+
+.modal-backdrop{
+    opacity: 65% !important;
+}
+
+/*.fixed-header-body{
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.fixed-header, .fixed-header-body, .fixed-header-tr, .fixed-header-td, .fixed-header-th {
+    display: block;
+}*/
