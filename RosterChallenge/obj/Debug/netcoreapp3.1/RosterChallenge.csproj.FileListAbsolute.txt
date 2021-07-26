@@ -383,3 +383,4 @@ C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\bin\Debug\netcorea
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dialogs\_AddEditArtistModal.cshtml.g.cs
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Partials\_rosterRow.cshtml.g.cs
 C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Dialogs\_confirmModal.cshtml.g.cs
+C:\Users\Curtis\source\repos\Roster-Challenge\RosterChallenge\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Dialogs\_notificationModal.cshtml.g.cs

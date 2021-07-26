@@ -44,11 +44,12 @@ namespace RosterChallenge.Controllers
                 _rosterContext.Add(_artist);
                 _rosterContext.SaveChanges();
 
-                return Json(new { success = true, ID = _artist.ID});
+                return Json(new { success = true, ID = _artist.ID });
             }
             catch (Exception e)
             {
-                return Json(new { success = false, error = e.Message });
+                _logger.LogTrace(e.StackTrace);
+                return Json(new { success = false, error = e.InnerException.Message });
             }
         }
 
@@ -73,41 +74,66 @@ namespace RosterChallenge.Controllers
             }
             catch (Exception e)
             {
-                return Json(new { success = false, error = e.Message });
+                _logger.LogTrace(e.StackTrace);
+                return Json(new { success = false, error = e.InnerException.Message });
             }
         }
 
         [HttpPost]
         public JsonResult getArtistByID(int ID)
         {
-            Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
-            return Json(new { success = true, artist = artist });
+            try
+            {
+                Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
+                return Json(new { success = true, artist = artist });
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace(e.StackTrace);
+                return Json(new { success = false, error = e.InnerException.Message });
+            }
         }
 
         [HttpPost]
         public JsonResult updatePaidArtistByID(int ID, bool paid)
         {
-            Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
-            artist.paid = paid;
-            _rosterContext.Update(artist);
-            _rosterContext.SaveChanges();
-            return Json(new { success = true });
-        }        
+            try
+            {
+                Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
+                artist.paid = paid;
+                _rosterContext.Update(artist);
+                _rosterContext.SaveChanges();
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace(e.StackTrace);
+                return Json(new { success = false, error = e.InnerException.Message });
+            }
+        }
 
         [HttpPost]
         public JsonResult deleteArtistByID(int ID)
         {
-            Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
-            _rosterContext.Remove(artist);
-            _rosterContext.SaveChanges();
-            return Json(new { success = true });
+            try
+            {
+                Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
+                _rosterContext.Remove(artist);
+                _rosterContext.SaveChanges();
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace(e.StackTrace);
+                return Json(new { success = false, error = e.Message });
+            }
         }
 
         [HttpPost]
         public PartialViewResult getArtistRow(int ID)
         {
-                Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
-                return PartialView("~/Views/Home/Partials/_rosterRow.cshtml", artist);
+            Artist artist = _rosterContext.Artists.Where(m => m.ID == ID).FirstOrDefault();
+            return PartialView("~/Views/Home/Partials/_rosterRow.cshtml", artist);
         }
 
 

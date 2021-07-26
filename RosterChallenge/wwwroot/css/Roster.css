@@ -56,14 +56,14 @@
     cursor: pointer;
 }
 
-#AddEditSaveButton, #ConfirmYesButton {
+#AddEditSaveButton, #ConfirmYesButton, #NotificationOKButton {
     background-color: #6CDCFF;
     border-radius: 20%;
     border: none;
     outline: none !important;
 }
 
-#AddEditSaveButton:hover, #ConfirmYesButton:hover {
+#AddEditSaveButton:hover, #ConfirmYesButton:hover, #NotificationOKButton:hover {
     background-color: #3ed1ff;
 }
 
@@ -77,6 +77,15 @@
 #AddEditCancelButton:hover, #ConfirmNoButton:hover {
     background-color: #dedada;
 }
+
+#NotificationBackdrop {
+    z-index: 9950;
+}
+
+#NotificationModal {
+    z-index: 9951;
+}
+
 /*.fixed-header-body{
     height: 100vh;
     overflow-y: auto;

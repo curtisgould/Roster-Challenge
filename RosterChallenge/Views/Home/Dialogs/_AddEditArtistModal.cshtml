@@ -1,26 +1,28 @@
 ﻿<div id="AddEditBackdrop" class="modal-backdrop"></div>
-<div id="AddEditModal"class="modal">
+<div id="AddEditModal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header fw-bold">Add Artist</div>
             <div class="modal-body">
-                @Html.Hidden("ID")
-                <div class="form-floating mt-2">
-                    <input id="artist" class="form-control" placeholder="Artist Name" />
-                    <label class="floatingInput" for="artist">Artist</label>
-                </div>
-                <div class="form-floating mt-2">
-                    <input id="rate" type="number" class="form-control" placeholder="Rate" />
-                    <label class="floatingInput" for="rate">Rate</label>
-                </div>
-                <div class="form-floating mt-2">
-                    <input id="streams" type="number" class="form-control" placeholder="Streams" />
-                    <label class="floatingInput" for="streams">Streams</label>
-                </div>
-                <div class="mt-2">
-                    <input id="artist" type="checkbox" />
-                    <label for="artist">Paid</label>
-                </div>
+                <form id="AddEditForm">
+                    @Html.Hidden("ID")
+                    <div class="form-floating mt-2">
+                        <input id="artist" required class="form-control" placeholder="Artist Name" />
+                        <label class="floatingInput" for="artist">Artist</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input id="rate" required type="number" class="form-control" placeholder="Rate" />
+                        <label class="floatingInput" for="rate">Rate</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input id="streams" required type="number" class="form-control" placeholder="Streams" />
+                        <label class="floatingInput" for="streams">Streams</label>
+                    </div>
+                    <div class="mt-2">
+                        <input id="artist" type="checkbox" />
+                        <label for="artist">Paid</label>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button id="AddEditCancelButton">Cancel</button>
