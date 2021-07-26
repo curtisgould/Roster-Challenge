@@ -39,7 +39,24 @@
             closeAddEditModal();
             closeConfirmModal();
 
-            $('table').tablesorter({ "theme": "default" });
+            //custom sort to handle checkboxes
+            $.tablesorter.addParser({
+                id: 'checkboxSort',
+                is: function (s) {
+                    return false;
+                },
+                format: function (s, table, cell) {
+                    return $($(cell).find("input[type='checkbox']")[0]).is(":checked");
+                },
+                type: 'numeric'
+            });
+
+            $('table').tablesorter({
+                "theme": "default", headers: {
+                    0: {
+                        sorter: 'checkboxSort'
+                    }
+                } });
         });
 
         function refreshArtistRow(ID) {
@@ -54,6 +71,15 @@
                     } else {
                         $("tbody").append(result);
                     }
+
+                    $('table').trigger('update');
+
+                    var sortlist = $("table")[0].config.sortList;
+                    if (sortlist.length == 0) {
+                        $.tablesorter.sortOn($("table")[0].config, [[4, 0]]);//default sort by payout
+                    } else {
+                        $.tablesorter.sortOn($("table")[0].config, sortlist);//resort by whatever order was most recently done
+                    }
                 }
             });
         }
@@ -63,22 +89,29 @@
             $("#ID").val(0);
         });
 
-        $("input[type='checkbox']").on("click", function () {
-            var ID = $(this).closest("tr").data("id");
-            var paid = $(this).is(":checked");
+        $("table input[type='checkbox']").on("click", function () {
+            var checkbox = $(this);
+            var ID = checkbox.closest("tr").data("id");
+            var paid = checkbox.is(":checked");
+            var artist = checkbox.closest("tr").find(".artist div").html();
+            
 
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("updatePaidArtistByID", "Home")',
-                data: { ID: ID, paid: paid },
-                success: function (result) {
-                    if (result.success == true) {
-                        blankOutAddEditModal();
+            openConfirmModal("Confirm Paid Status", "Would you like to update " + artist + " as " + (paid ? "paid?" : "unpaid?"), function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("updatePaidArtistByID", "Home")',
+                    data: { ID: ID, paid: paid },
+                    success: function (result) {
+                        if (result.success == true) {
+                            blankOutAddEditModal();
+                        }
+                        else {
+                           
+                        }
                     }
-                    else {
-
-                    }
-                }
+                });
+            }, function () {
+                checkbox.prop('checked', !paid);
             });
         });
 
@@ -107,7 +140,7 @@
 
         $(".bi-trash").on("click", function () {
             var ID = $(this).closest("tr").data("id");
-            var artist = $(this).closest("tr").find(".artist").html();
+            var artist = $(this).closest("tr").find(".artist div").html();
 
             openConfirmModal("Confirm Deletion", "Are you sure you would like to delete the following artist: " + artist + "?", function () {
                 $.ajax({
@@ -167,8 +200,6 @@
                 url: URL,
                 data: artist,
                 success: function (result) {
-                    closeAddEditModal();
-
                     if (result.success == true) {
                         refreshArtistRow(result.id);
                         blankOutAddEditModal();
@@ -176,6 +207,7 @@
                     else {
 
                     }
+                    closeAddEditModal();
                 }
             });
         });
