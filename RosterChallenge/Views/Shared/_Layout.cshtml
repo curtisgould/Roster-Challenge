@@ -13,6 +13,9 @@
             <div class="container d-flex justify-content-center">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Artist Roster</a>
             </div>
+            <div id="AddArtist" class="addButton">
+                <button class="plusButton"><div class="plusIcon">+</div></button><div class="buttonText">Add Artist</div>
+            </div>
         </nav>
     </header>
     <div class="container">
@@ -29,8 +32,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
     @RenderSection("Styles", required: false)
     @RenderSection("Dialogs", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -2,58 +2,81 @@
     margin: 0 auto;
 }
 
-.addButton{
-    &:hover{
+.addButton {
+    &:hover {
         cursor: pointer;
     }
+
     display: inline-block;
-    font-weight: bold;    
+    font-weight: bold;
     font-size: 22px;
     width: 170px;
     display: inline-block;
 }
 
 .plusButton {
-  height: 40px;
-  width: 40px;
-  background-color: #4cba02;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 30px;
-  color: white;
-  border: none;
-  outline: none !important;
+    height: 40px;
+    width: 40px;
+    background-color: #4cba02;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    border: none;
+    outline: none !important;
 }
 
-.buttonText:hover{
-     cursor: pointer;
+.buttonText:hover {
+    cursor: pointer;
 }
 
-.buttonText{
+.buttonText {
     display: inline-block;
     position: absolute;
     margin-left: 5px;
     margin-top: 9px;
 }
 
-.plusIcon{
+.plusIcon {
     position: absolute;
     display: inline;
     margin-top: -25px;
     margin-left: -11px;
 }
 
-.modal-backdrop{
+.modal-backdrop {
     opacity: 65% !important;
 }
 
-.AddEditSaveButton{
-background-color: #6CDCFF;
-border-radius: 20%;
-  border: none;
-  outline: none !important;
+.bi-pencil:hover {
+    cursor: pointer;
 }
 
+.bi-trash:hover {
+    cursor: pointer;
+}
+
+#AddEditSaveButton, #ConfirmYesButton {
+    background-color: #6CDCFF;
+    border-radius: 20%;
+    border: none;
+    outline: none !important;
+}
+
+#AddEditSaveButton:hover, #ConfirmYesButton:hover {
+    background-color: #3ed1ff;
+}
+
+#AddEditCancelButton, #ConfirmNoButton {
+    border-radius: 20%;
+    border: none;
+    outline: none !important;
+    background-color: #FFF;
+}
+
+#AddEditCancelButton:hover, #ConfirmNoButton:hover {
+    background-color: #dedada;
+}
 /*.fixed-header-body{
     height: 100vh;
     overflow-y: auto;

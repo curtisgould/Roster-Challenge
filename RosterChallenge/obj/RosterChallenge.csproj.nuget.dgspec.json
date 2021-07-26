@@ -53,10 +53,6 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.8, )"
-            },
-            "jQuery": {
-              "target": "Package",
-              "version": "[3.6.0, )"
             }
           },
           "imports": [

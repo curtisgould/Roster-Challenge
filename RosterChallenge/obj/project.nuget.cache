@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+ZF2Q4vOG0aCHTHNdABs5CollCeF3olx3vEfVjO9aZLX8Uyoj+PC0Y0yMHdLqcwRZOLCxzBUmVoXRy//WujLaQ==",
+  "dgSpecHash": "qmAi3sLYPXZFZ3VdBezOgSpkmk+R5num3pqmcU0FewuizEKXWjblufuNGkolzpVyc5GRJEoVxLCjlP+5YTpOZg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Curtis\\source\\repos\\Roster-Challenge\\RosterChallenge\\RosterChallenge.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Curtis\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\Curtis\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\Curtis\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.16\\microsoft.aspnetcore.mvc.razor.extensions.3.1.16.nupkg.sha512",
     "C:\\Users\\Curtis\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\3.1.16\\microsoft.aspnetcore.mvc.razor.runtimecompilation.3.1.16.nupkg.sha512",
     "C:\\Users\\Curtis\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.16\\microsoft.aspnetcore.razor.language.3.1.16.nupkg.sha512",

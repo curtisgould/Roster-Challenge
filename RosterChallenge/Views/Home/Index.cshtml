@@ -5,50 +5,209 @@
 
 @section styles{
     <link href="~/css/Roster.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css" integrity="sha512-wghhOJkjQX0Lh3NSWvNKeZ0ZpNn+SPVXX1Qyc9OCaogADktxrBiBdKGDoqVUOyhStvMBmJQ8ZdMHiR3wuEq8+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 }
 @section dialogs{
-    <partial name="~/Views/Home/Dialogs/_AddEditArtistModal.cshtml" />
+    <partial name="~/Views/Home/Dialogs/_addEditArtistModal.cshtml" />
+    <partial name="~/Views/Shared/Dialogs/_confirmModal.cshtml" />
 }
-<div id="AddArtist" class="addButton">
-    <button class="plusButton"><div class="plusIcon">+</div></button><div class="buttonText">Add Artist</div>
-</div>
 
 <Table class="fixed-header">
     <thead>
         <tr>
-            <td class="pr-4 font-weight-bold">Artist</td>
-            <td><div class="pr-4 font-weight-bold">Rate</div></td>
-            <td><div class="float-right pr-4 font-weight-bold">Total Steams</div></td>
-            <td><div class="float-right pr-4 font-weight-bold">Payout</div></td>
-            <td><div class="float-right pr-4 font-weight-bold">Monthly Avg.</div></td>
-            <td><div class="font-weight-bold">Paid</div></td>
+            <td><div class="mx-3 fw-bold">Paid</div></td>
+            <td class="mx-3 fw-bold">Artist</td>
+            <td><div class="mx-3 fw-bold">Rate</div></td>
+            <td><div class="float-right mx-3 fw-bold">Total Steams</div></td>
+            <td><div class="float-right mx-3 fw-bold">Payout</div></td>
+            <td><div class="float-right mx-3 fw-bold">Monthly Avg.</div></td>
         </tr>
     </thead>
     <tbody class="fixed-header-body">
         @foreach (Artist a in Model.Roster)
         {
-            <tr>
-                <td class="pr-4">@a.artist</td>
-                <td><div class="pr-4">$@a.rate</div></td>
-                <td><div class="float-right pr-4">@a.streams.ToString("N").Replace(".00", "")</div></td>
-                <td><div class="float-right pr-4">@a.getTotalPayout().ToString("C")</div></td>
-                <td><div class="float-right pr-4">@a.getAverageMonthlyPayout().ToString("C")</div></td>
-                <td><div><input class="ml-2" type="checkbox" /></div></td>
-            </tr>
+            @await Html.PartialAsync("~/Views/Home/Partials/_rosterRow.cshtml", a)
         }
     </tbody>
 </Table>
 
-@section Scripts{ 
-<script>
-    $(document).ready(function () {
-        $(".modal").hide();
-        $(".modal-backdrop").hide();
-    });
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            closeAddEditModal();
+            closeConfirmModal();
 
-    $("#AddArtist").on("click", function () {
-        $("#AddEditModal").show();
-        $("#AddEditBackdrop").show();
-    });
-</script>
+            $('table').tablesorter({ "theme": "default" });
+        });
+
+        function refreshArtistRow(ID) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getArtistRow", "Home")',
+                data: {ID: ID},
+                success: function (result) {
+                    //find tr by ID, if exists replace, if not add to table and sort
+                    if ($("tbody").find("tr[data-id='" + $(result).data("id") + "']").length > 0) {
+                        $("tbody").find("tr[data-id='" + $(result).data("id") + "']").replaceWith(result);
+                    } else {
+                        $("tbody").append(result);
+                    }
+                }
+            });
+        }
+
+        $("#AddArtist").on("click", function () {
+            openAddEditModal("Add Artist");
+            $("#ID").val(0);
+        });
+
+        $("input[type='checkbox']").on("click", function () {
+            var ID = $(this).closest("tr").data("id");
+            var paid = $(this).is(":checked");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("updatePaidArtistByID", "Home")',
+                data: { ID: ID, paid: paid },
+                success: function (result) {
+                    if (result.success == true) {
+                        blankOutAddEditModal();
+                    }
+                    else {
+
+                    }
+                }
+            });
+        });
+
+        $(".bi-pencil").on("click", function () {
+            var ID = $(this).closest("tr").data("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getArtistByID", "Home")',
+                data: { ID: ID},
+                success: function (result) {
+                    if (result.success == true) {
+                        $("#artist").val(result.artist.artist);
+                        $("#rate").val(result.artist.rate);
+                        $("#streams").val(result.artist.streams);
+                        $("#paid").val(result.artist.paid);
+                        $("#ID").val(result.artist.id);
+                        openAddEditModal("Edit Artist");
+                    }
+                    else {
+
+                    }
+                }
+            });
+        });
+
+        $(".bi-trash").on("click", function () {
+            var ID = $(this).closest("tr").data("id");
+            var artist = $(this).closest("tr").find(".artist").html();
+
+            openConfirmModal("Confirm Deletion", "Are you sure you would like to delete the following artist: " + artist + "?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("deleteArtistByID", "Home")',
+                    data: { ID: ID},
+                    success: function (result) {
+                        if (result.success == true) {
+                            $("tbody").find("tr[data-id='" + ID + "']").remove();
+                        }
+                        else {
+
+                        }
+                    }
+                });
+            })
+        });
+
+        ///////////Add Edit Modal//////////////
+
+        function blankOutAddEditModal() {
+            $("#artist").val("");
+            $("#rate").val("");
+            $("#streams").val("");
+            $("#paid").val("");
+            $("#ID").val("");
+        }
+
+        function closeAddEditModal() {
+            $("#AddEditModal.modal").hide();
+            $("#AddEditBackdrop.modal-backdrop").hide();
+        }
+
+        function openAddEditModal(title) {
+            $("#AddEditModal .modal-header").text(title);
+            $("#AddEditModal.modal").show();
+            $("#AddEditBackdrop.modal-backdrop").show();
+        }
+
+        $("#AddEditCancelButton").on("click", function(){
+            closeAddEditModal();
+            blankOutAddEditModal();
+        });
+
+        $("#AddEditSaveButton").on("click", function () {
+            var URL;
+            if ($("#ID").val() != "0") {
+                URL = '@Url.Action("UpdateArtist", "Home")';
+            } else {
+                URL = '@Url.Action("AddArtist", "Home")';
+            }
+
+            var artist = { "artist": $("#artist").val(), "rate": $("#rate").val(), "paid": $("#paid").is(":checked"), "streams": $("#streams").val(), "ID": $("#ID").val()};
+
+            $.ajax({
+                type: "POST",
+                url: URL,
+                data: artist,
+                success: function (result) {
+                    closeAddEditModal();
+
+                    if (result.success == true) {
+                        refreshArtistRow(result.id);
+                        blankOutAddEditModal();
+                    }
+                    else {
+
+                    }
+                }
+            });
+        });
+
+
+        ///////////confirm Modal//////////////
+        function closeConfirmModal() {
+            $("#confirmModal.modal").hide();
+            $("#confirmBackdrop.modal-backdrop").hide();
+        }
+
+        function openConfirmModal(title, message, yesFunc, noFunc) {
+            $("#confirmModal .modal-header").text(title);
+            $("#confirmModal .modal-body").text(message);
+            $("#confirmModal.modal").show();
+            $("#confirmBackdrop.modal-backdrop").show();
+
+            if (typeof yesFunc !== 'function') {
+                yesFunc = function () { };
+            }
+
+            if (typeof noFunc !== 'function') {
+                noFunc = function () { };
+            }
+
+            $("#ConfirmYesButton").off();
+            $("#ConfirmYesButton").on("click", function () { yesFunc(); closeConfirmModal(); })
+
+            $("#ConfirmNoButton").off();
+            $("#ConfirmNoButton").on("click", function () { noFunc(); closeConfirmModal(); })
+        }
+
+
+    </script>
 }
