@@ -91,6 +91,11 @@ table {
     z-index: 9951;
 }
 
+thead td {
+    position: sticky;
+    top: 0;
+}
+
 /*.fixed-header-body{
     height: 100vh;
     overflow-y: auto;
