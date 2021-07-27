@@ -71,6 +71,8 @@
                     }
 
                     $('table').trigger('update');
+                    bindEdit();
+                    bindDelete();
 
                     var sortlist = $("table")[0].config.sortList;
                     if (sortlist.length == 0) {
@@ -110,50 +112,59 @@
             }, revertCheckox);
         });
 
-        $(".bi-pencil").on("click", function () {
-            var ID = $(this).closest("tr").data("id");
+        var bindEdit = function () {
+            $(".bi-pencil").on("click", function () {
+                var ID = $(this).closest("tr").data("id");
 
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("getArtistByID", "Home")',
-                data: { ID: ID},
-                success: function (result) {
-                    if (result.success == true) {
-                        $("#artist").val(result.artist.artist);
-                        $("#rate").val(result.artist.rate);
-                        $("#streams").val(result.artist.streams);
-                        $("#paid").val(result.artist.paid);
-                        $("#ID").val(result.artist.id);
-                        openAddEditModal("Edit Artist");
-                    }
-                    else {
-                        openNotificationModal("Error Occurred", "An error occured while retrieving information for artist: " + result.error);
-                    }
-                }
-            });
-        });
-
-        $(".bi-trash").on("click", function () {
-            var ID = $(this).closest("tr").data("id");
-            var artist = $(this).closest("tr").find(".artist div").html();
-
-            openConfirmModal("Confirm Deletion", "Are you sure you would like to delete the following artist: " + artist + "?", function () {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("deleteArtistByID", "Home")',
-                    data: { ID: ID},
+                    url: '@Url.Action("getArtistByID", "Home")',
+                    data: { ID: ID },
                     success: function (result) {
                         if (result.success == true) {
-                            $("tbody").find("tr[data-id='" + ID + "']").remove();
-                            $('table').trigger('update');
+                            $("#artist").val(result.artist.artist);
+                            $("#rate").val(result.artist.rate);
+                            $("#streams").val(result.artist.streams);
+                            $("#paid").val(result.artist.paid);
+                            $("#ID").val(result.artist.id);
+                            openAddEditModal("Edit Artist");
                         }
                         else {
-                            openNotificationModal("Error Occurred", "An error occured while deleting artist: " + result.error);
+                            openNotificationModal("Error Occurred", "An error occured while retrieving information for artist: " + result.error);
                         }
                     }
                 });
-            })
-        });
+            });
+        };
+
+        var bindDelete = function () {
+            $(".bi-trash").on("click", function () {
+                var ID = $(this).closest("tr").data("id");
+                var artist = $(this).closest("tr").find(".artist div").html();
+
+                openConfirmModal("Confirm Deletion", "Are you sure you would like to delete the following artist: " + artist + "?", function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("deleteArtistByID", "Home")',
+                        data: { ID: ID },
+                        success: function (result) {
+                            if (result.success == true) {
+                                $("tbody").find("tr[data-id='" + ID + "']").remove();
+                                $('table').trigger('update');
+                                bindEdit();
+                                bindDelete();
+                            }
+                            else {
+                                openNotificationModal("Error Occurred", "An error occured while deleting artist: " + result.error);
+                            }
+                        }
+                    });
+                })
+            });
+        };
+
+        bindEdit();
+        bindDelete();
 
         ///////////Add Edit Modal//////////////
 
@@ -208,7 +219,7 @@
                     else {
                         openNotificationModal("Error Occurred", "An error occured while saving: " + result.error);
                     }
-                    
+
                 }
             });
         });
