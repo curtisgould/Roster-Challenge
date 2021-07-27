@@ -38,6 +38,8 @@ namespace RosterChallenge.Models
         private DateTime endDate = DateTime.Now;
         private int months => ((endDate.Year - startDate.Year) * 12) + endDate.Month - startDate.Month;
 
+        //assumes all artists started streaming in 2006, would need to some how track date added to spotify otherwise, which isnt provided in
+        //the original data so i assume monthly avg might be wrong for artists added to spotify after this date
         public double getAverageMonthlyPayout() => Math.Round(getTotalPayout() / months, 2);
         public double getTotalPayout() => Math.Round(rate * streams, 2);
     }
