@@ -125,7 +125,7 @@
                             $("#artist").val(result.artist.artist);
                             $("#rate").val(result.artist.rate);
                             $("#streams").val(result.artist.streams);
-                            $("#paid").val(result.artist.paid);
+                            $("#artistPaid").prop('checked', result.artist.paid);
                             $("#ID").val(result.artist.id);
                             openAddEditModal("Edit Artist");
                         }
