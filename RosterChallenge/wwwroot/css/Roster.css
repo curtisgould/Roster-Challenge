@@ -1,4 +1,9 @@
-﻿table {
+﻿#mainBody {
+    max-height: calc(100vh - 138px);
+    overflow-y: scroll;
+}
+
+table {
     margin: 0 auto;
 }
 

@@ -193,7 +193,7 @@
                 URL = '@Url.Action("AddArtist", "Home")';
             }
 
-            var artist = { "artist": $("#artist").val(), "rate": $("#rate").val(), "paid": $("#paid").is(":checked"), "streams": $("#streams").val(), "ID": $("#ID").val()};
+            var artist = { "artist": $("#artist").val(), "rate": $("#rate").val(), "paid": $("#artistPaid").is(":checked"), "streams": $("#streams").val(), "ID": $("#ID").val()};
 
             $.ajax({
                 type: "POST",
