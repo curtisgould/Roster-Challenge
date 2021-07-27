@@ -37,10 +37,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function () {
-            closeAddEditModal();
-            closeConfirmModal();
-            closeNotificationModal()
-
             //custom sort to handle checkboxes
             $.tablesorter.addParser({
                 id: 'checkboxSort',
@@ -216,55 +212,5 @@
                 }
             });
         });
-
-
-        ///////////confirm Modal//////////////
-        function closeConfirmModal() {
-            $("#confirmModal.modal").hide();
-            $("#confirmBackdrop.modal-backdrop").hide();
-        }
-
-        function openConfirmModal(title, message, yesFunc, noFunc) {
-            $("#confirmModal .modal-header").text(title);
-            $("#confirmModal .modal-body").text(message);
-            $("#confirmModal.modal").show();
-            $("#confirmBackdrop.modal-backdrop").show();
-
-            if (typeof yesFunc !== 'function') {
-                yesFunc = function () { };
-            }
-
-            if (typeof noFunc !== 'function') {
-                noFunc = function () { };
-            }
-
-            $("#ConfirmYesButton").off();
-            $("#ConfirmYesButton").on("click", function () { yesFunc(); closeConfirmModal(); });
-
-            $("#ConfirmNoButton").off();
-            $("#ConfirmNoButton").on("click", function () { noFunc(); closeConfirmModal(); });
-        }
-
-        ///////////Notification Modal//////////////
-        function closeNotificationModal() {
-            $("#NotificationModal.modal").hide();
-            $("#NotificationBackdrop.modal-backdrop").hide();
-        }
-
-        function openNotificationModal(title, message, OKFunc) {
-            $("#NotificationModal .modal-header").text(title);
-            $("#NotificationModal .modal-body").text(message);
-            $("#NotificationModal.modal").show();
-            $("#NotificationBackdrop.modal-backdrop").show();
-
-            if (typeof OKFunc !== 'function') {
-                OKFunc = function () { };
-            }
-
-            $("#NotificationOKButton").off();
-            $("#NotificationOKButton").on("click", function () { OKFunc(); closeNotificationModal(); });
-        }
-
-
     </script>
 }
