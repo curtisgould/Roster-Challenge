@@ -10,7 +10,7 @@ How to run this project:
 4. Run the following commands in the package manager console to create a Roster database: update-database
 5. Run the following SQL against your SQL Server Roster database to import your JSON file (update the script to your local filepath)
 			Declare @JSON varchar(max)
-
+```SQL
 			SELECT @JSON=BulkColumn
 			FROM OPENROWSET (BULK 'YOUR FILE PATH TO Roster.JSON', SINGLE_CLOB) import
 
@@ -24,5 +24,5 @@ How to run this project:
 				[rate] float, 
 				[streams] int
 			)
-
+```
 6. Run your solution in visual studio
