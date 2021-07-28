@@ -14,3 +14,5 @@ Added confirm boxes for marking artists as paid and for deleting artists to prev
 Added table sorter to help users find specific artists more efficiently.
 
 Made body of the table the only part of the page that scrolls, makes determining which headers are which easier 
+
+Selected AWS for deployment, utilized ElasticBeanStalk for deployment from visual studio to AWS, Utilized AWS RDS for SQL server instance. 
