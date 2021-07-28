@@ -11,7 +11,7 @@ namespace RosterChallenge.Models
     {
         public RosterModel(RosterContext rc)
         {
-            Roster  = rc.Artists.ToList().OrderBy(r => r.getTotalPayout());         
+            Roster  = rc.Artists.ToList().OrderByDescending(r => r.getTotalPayout());         
         }
 
         public IOrderedEnumerable<Artist> Roster;
