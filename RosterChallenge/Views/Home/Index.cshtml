@@ -78,7 +78,7 @@
 
                     var sortlist = $("table")[0].config.sortList;
                     if (sortlist.length == 0) {
-                        $.tablesorter.sortOn($("table")[0].config, [[4, 0]]);//default sort by payout
+                        $.tablesorter.sortOn($("table")[0].config, [[4, 1]]);//default sort by payout
                     } else {
                         $.tablesorter.sortOn($("table")[0].config, sortlist);//resort by whatever order was most recently done
                     }
